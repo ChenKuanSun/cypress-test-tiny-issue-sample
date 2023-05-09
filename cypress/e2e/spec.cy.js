@@ -8,9 +8,9 @@
  * Note: we are disabling the testIsolation to keep context between tests.
  */
 describe("Situations where intercept fails in our app", () => {
-  const setup = () => {
+  const setup = (delayTime = 0) => {
     // Initial Cypress Commands takes sometime.
-    cy.wait(3000);
+    cy.wait(delayTime);
     // Intercept the API call
     cy.intercept(
       {
@@ -39,7 +39,7 @@ describe("Situations where intercept fails in our app", () => {
     setup();
 
     // Click the button to call the API
-    cy.get("#call-api-delay-1-second").click();
+    cy.get("#call-api").click();
 
     // Wait for the API call to complete
     cy.wait(["@getData"]);
@@ -55,10 +55,12 @@ describe("Situations where intercept fails in our app", () => {
 
   it("intercept failed", () => {
     // Setup the test
-    setup();
+    setup(
+      1500 // Wait for 1.5 seconds to make sure the previous API call is emited
+    );
 
     // Click the button to call the API check if the response is intercepted
-    cy.get("#call-api-delay-1-second").click();
+    cy.get("#call-api").click();
 
     // Wait for the API call to complete
     cy.wait(["@getData"]);
