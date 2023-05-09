@@ -56,6 +56,13 @@ describe("Situations where intercept fails in our app", () => {
   it("intercept failed", () => {
     // Setup the test
     setup();
+
+    // Click the button to call the API check if the response is intercepted
+    cy.get("#call-api-delay-1-second").click();
+
+    // Wait for the API call to complete
+    cy.wait(["@getData"]);
+
     // Set wait time to 3 seconds make sure the all API call is completed
     cy.wait(3000);
 
