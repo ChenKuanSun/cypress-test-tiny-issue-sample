@@ -5,7 +5,7 @@
  * But if there is a api call in the background like something service,
  * the intercept will fail due to Cypress's netStubbingState reset.
  *
- * Note: we are enabling the testIsolation to keep context between tests.
+ * Note: we are disabling the testIsolation to keep context between tests.
  */
 describe("Situations where intercept fails in our app", () => {
   const setup = () => {
